@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nail Atelier | Premium Manicure & Eyelash Salon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-bg': '#F6F1EA',
+                        'brand-card': 'rgba(255, 255, 255, 0.92)',
+                        'brand-ink': '#251F1C',
+                        'brand-muted': '#7C6F68',
+                        'brand-accent': '#B48A78',
+                        'brand-accent-light': '#E8C8BD',
+                        'brand-gold': '#C6A87C',
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 6px 18px rgba(13,10,8,0.05)',
+                        'deep': '0 10px 30px rgba(13,10,8,0.10)',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Utilities */
+        body { background-color: #F6F1EA; color: #251F1C; }
+        
+        /* Hide scrollbar */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Parallax Background */
+        .hero-parallax {
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* Arch Mask */
+        .hero-arch {
+            border-radius: 500px 500px 0 0;
+        }
+        
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transition */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+        .mobile-menu-panel {
+            transition: transform 0.3s ease-in-out;
+        }
+        
+        /* Interactive Elements */
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-brand-bg/80 backdrop-blur-md border-b border-brand-ink/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                
+                <!-- Mobile Hamburger -->
+                <div class="flex items-center md:hidden">
+                    <button onclick="toggleMobileMenu()" class="text-brand-ink p-2 hover:bg-white/50 rounded-full transition-colors" aria-label="Menu">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Desktop Socials (Left) -->
+                <div class="hidden md:flex space-x-3 items-center">
+                    <a href="#" class="w-9 h-9 rounded-full border border-brand-ink/10 flex items-center justify-center bg-white hover:bg-brand-accent hover:text-white hover:border-transparent transition-all duration-300 group">
+                        <i class="fab fa-instagram text-sm group-hover:scale-110 transition-transform"></i>
+                    </a>
+                    <a href="#" class="w-9 h-9 rounded-full border border-brand-ink/10 flex items-center justify-center bg-white hover:bg-brand-accent hover:text-white hover:border-transparent transition-all duration-300 group">
+                        <i class="fab fa-facebook-f text-sm group-hover:scale-110 transition-transform"></i>
+                    </a>
+                </div>
+
+                <!-- Center Links -->
+                <div class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.15em] font-medium text-brand-muted">
+                    <a href="#about" class="hover:text-brand-ink transition-colors relative group py-2">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#gallery" class="hover:text-brand-ink transition-colors relative group py-2">
+                        Collection
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <!-- Logo in Center -->
+                    <a href="#" onclick="window.scrollTo(0,0)" class="mx-4 transform hover:scale-105 transition-transform">
+                         <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="2" width="96" height="96" rx="48" fill="#251F1C"/>
+                            <path d="M35 70V35C35 31 39 27 45 27H55C61 27 65 31 65 35V70" stroke="#C6A87C" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M35 48H65" stroke="#C6A87C" stroke-width="1.5"/>
+                            <circle cx="50" cy="55" r="8" fill="#C6A87C"/>
+                        </svg>
+                    </a>
+                    <a href="#menu" class="hover:text-brand-ink transition-colors relative group py-2">
+                        Menu
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#reviews" class="hover:text-brand-ink transition-colors relative group py-2">
+                        Reviews
+                        <span class="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-accent transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <!-- Mobile Logo (Center) -->
+                <div class="md:hidden absolute left-1/2 transform -translate-x-1/2 flex flex-col items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <span class="font-serif text-xl font-bold tracking-wide text-brand-ink">Nail Atelier</span>
+                </div>
+
+                <!-- Booking Button (Right) -->
+                <div class="flex items-center">
+                    <a href="#contact" class="hidden md:inline-block px-6 py-2 bg-brand-ink text-white text-xs font-semibold uppercase tracking-widest rounded-full hover:bg-brand-accent hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                        Book Now
+                    </a>
+                    <!-- Mobile Search/User icon placeholder -->
+                    <a href="#contact" class="md:hidden text-xs font-bold uppercase tracking-widest text-brand-ink border-b border-brand-ink pb-1">
+                        Book
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 opacity-0 invisible mobile-menu-overlay md:hidden"></div>
+        <div id="mobile-menu-panel" class="fixed top-0 left-0 w-[80%] max-w-xs h-full bg-[#FAF8F5] z-50 transform -translate-x-full mobile-menu-panel shadow-2xl flex flex-col md:hidden">
+            <div class="p-8 flex justify-between items-center border-b border-brand-ink/5">
+                <span class="font-serif text-2xl font-bold text-brand-ink">Nail Atelier</span>
+                <button onclick="toggleMobileMenu()" class="text-brand-muted hover:text-brand-ink p-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="flex-1 overflow-y-auto py-8 px-8 space-y-6">
+                <a href="#about" onclick="toggleMobileMenu()" class="block text-xl font-serif text-brand-ink">About Studio</a>
+                <a href="#gallery" onclick="toggleMobileMenu()" class="block text-xl font-serif text-brand-ink">Collection</a>
+                <a href="#menu" onclick="toggleMobileMenu()" class="block text-xl font-serif text-brand-ink">Service Menu</a>
+                <a href="#reviews" onclick="toggleMobileMenu()" class="block text-xl font-serif text-brand-ink">Reviews</a>
+                <a href="#trendy" onclick="toggleMobileMenu()" class="block text-xl font-serif text-brand-ink">Trendy Tips</a>
+            </div>
+            <div class="p-8 bg-brand-ink text-white">
+                <p class="text-xs uppercase tracking-widest mb-2 opacity-70">Booking</p>
+                <p class="font-serif text-lg mb-4">+65 9123 4567</p>
+                <a href="#contact" onclick="toggleMobileMenu()" class="block w-full text-center py-3 bg-white text-brand-ink text-sm font-bold uppercase tracking-widest rounded hover:bg-brand-accent hover:text-white transition-colors">
+                    Book Online
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 pb-10 overflow-hidden">
+        <!-- Parallax Background -->
+        <div class="absolute inset-0 z-0">
+            <div id="hero-bg" class="absolute inset-0 w-full h-[120%] -top-[10%] bg-cover bg-center hero-parallax" 
+                 style="background-image: url('https://images.unsplash.com/photo-1519014816548-bf5fe059798b?q=80&w=2000&auto=format&fit=crop');">
+            </div>
+            <div class="absolute inset-0 bg-brand-bg/50"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/30 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 container mx-auto px-4 w-full max-w-5xl">
+            <!-- Hero Card -->
+            <div class="bg-brand-card backdrop-blur-md border border-white/60 shadow-deep rounded-[2rem] p-8 md:p-16 text-center transform hover:-translate-y-1 transition-transform duration-700 mx-auto max-w-2xl fade-up-trigger">
+                
+                <!-- Logo SVG -->
+                <div class="mb-8 flex justify-center">
+                    <svg class="w-48 md:w-64 h-auto text-brand-ink" viewBox="0 0 320 160" xmlns="http://www.w3.org/2000/svg">
+                        <text x="50%" y="40%" text-anchor="middle" font-family="Playfair Display" font-weight="bold" font-size="80" letter-spacing="8" fill="currentColor">NA</text>
+                        <text x="50%" y="75%" text-anchor="middle" font-family="Playfair Display" font-weight="normal" font-size="24" letter-spacing="6" fill="currentColor">NAIL ATELIER</text>
+                        <line x1="100" y1="95" x2="220" y2="95" stroke="#B48A78" stroke-width="1" />
+                    </svg>
+                </div>
+
+                <p class="font-serif text-2xl md:text-4xl text-brand-ink mb-4 leading-tight">
+                    Eco-Luxury Care & <br class="hidden md:block">Artful Minimalism
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-[10px] md:text-xs font-bold uppercase tracking-[0.15em] text-brand-muted mb-10">
+                    <span class="flex items-center"><i class="fas fa-leaf text-brand-accent mr-2"></i>Vegan</span>
+                    <span class="flex items-center"><i class="fas fa-heart text-brand-accent mr-2"></i>Cruelty Free</span>
+                    <span class="flex items-center"><i class="fas fa-gem text-brand-accent mr-2"></i>Premium Gel</span>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                    <a href="#contact" class="w-full sm:w-auto px-8 py-3 bg-brand-ink text-white text-xs font-bold uppercase tracking-widest rounded-full shadow-soft hover:bg-brand-accent hover:shadow-lg transition-all duration-300">
+                        Book Appointment
+                    </a>
+                    <a href="#gallery" class="w-full sm:w-auto px-8 py-3 bg-transparent border border-brand-ink/20 text-brand-ink text-xs font-bold uppercase tracking-widest rounded-full hover:bg-white transition-all duration-300">
+                        View Collection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 md:py-32 bg-brand-bg relative">
+        <div class="container mx-auto px-4 max-w-3xl text-center fade-up-trigger">
+            <span class="text-brand-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Our Philosophy</span>
+            <h2 class="font-serif text-3xl md:text-5xl text-brand-ink mb-8 leading-tight">
+                Beauty should feel effortless, calm, and kind.
+            </h2>
+            <p class="text-brand-muted leading-relaxed text-base md:text-lg mb-10 font-light">
+                At Nail Atelier, every set is designed to reflect your authentic style — from clean minimalist tones to intricate nail art. We use premium, low‑odor gels and carefully selected vegan formulas to deliver a luxurious finish with a lighter footprint.
+            </p>
+            <div class="h-12 w-[1px] bg-brand-ink/10 mx-auto"></div>
+        </div>
+    </section>
+
+    <!-- Interactive Gallery Section -->
+    <section id="gallery" class="py-20 bg-[#EFE7DE] border-y border-brand-ink/5">
+        <div class="container mx-auto px-4 max-w-6xl">
+            <!-- Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 fade-up-trigger">
+                <div>
+                    <span class="text-brand-muted text-xs font-bold uppercase tracking-[0.2em] block mb-2">Collection</span>
+                    <h2 class="font-serif text-4xl text-brand-ink">Signature Looks</h2>
+                </div>
+                <div class="flex gap-2">
+                    <button id="gPrev" class="w-10 h-10 rounded-full border border-brand-ink/10 bg-white flex items-center justify-center hover:bg-brand-ink hover:text-white transition-colors">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="gNext" class="w-10 h-10 rounded-full border border-brand-ink/10 bg-white flex items-center justify-center hover:bg-brand-ink hover:text-white transition-colors">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Interactive Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 fade-up-trigger">
+                <!-- Main Feature Image -->
+                <div class="md:col-span-7 lg:col-span-8 h-[400px] md:h-[500px] rounded-2xl overflow-hidden shadow-soft relative group">
+                    <img id="main-feature-img" src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=1600&auto=format&fit=crop" alt="Featured Nail Art" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-8">
+                        <p class="text-white font-serif text-2xl italic">Featured Style</p>
+                    </div>
+                </div>
+
+                <!-- Thumbnails Side -->
+                <div class="md:col-span-5 lg:col-span-4 grid grid-cols-2 md:grid-cols-2 gap-4 h-fit">
+                    <!-- Thumbs generated by JS or Static -->
+                    <div class="cursor-pointer rounded-xl overflow-hidden aspect-square border-2 border-transparent hover:border-brand-accent transition-all duration-300 opacity-80 hover:opacity-100 thumb-trigger" data-src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=1600&auto=format&fit=crop">
+                        <img src="https://images.unsplash.com/photo-1632345031435-8727f6897d53?q=80&w=400&auto=format&fit=crop" class="w-full h-full object-cover">
+                    </div>
+                    <div class="cursor-pointer rounded-xl overflow-hidden aspect-square border-2 border-transparent hover:border-brand-accent transition-all duration-300 opacity-80 hover:opacity-100 thumb-trigger" data-src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <div class="cursor-pointer rounded-xl overflow-hidden aspect-square border-2 border-transparent hover:border-brand-accent transition-all duration-300 opacity-80 hover:opacity-100 thumb-trigger" data-src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                        <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059e98b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    </div>
+                    <div class="cursor-pointer rounded-xl overflow-hidden aspect-square border-2 border-transparent hover:border-brand-accent transition-all duration-300 opacity-80 hover:opacity-100 thumb-trigger" data-src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+                        <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mt-10 fade-up-trigger">
+                <span class="px-4 py-1 bg-white rounded-full border border-brand-ink/10 text-[10px] uppercase tracking-widest text-brand-muted">Custom designs</span>
+                <span class="px-4 py-1 bg-white rounded-full border border-brand-ink/10 text-[10px] uppercase tracking-widest text-brand-muted">Bring reference</span>
+                <span class="px-4 py-1 bg-white rounded-full border border-brand-ink/10 text-[10px] uppercase tracking-widest text-brand-muted">Nail care included</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-brand-bg">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="text-center mb-16 fade-up-trigger">
+                <h2 class="font-serif text-4xl text-brand-ink mb-4">Service Menu</h2>
+                <p class="text-brand-muted">Transparent pricing. Premium products. No rushed appointments.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+                <!-- Nails Column -->
+                <div class="fade-up-trigger">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+                            <i class="fas fa-hand-sparkles"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl text-brand-ink">Nails</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Menu Item -->
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Classic Manicure</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$38</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Shape, cuticle care, buff, finish</p>
+                        </div>
+                        
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Premium Gel Manicure</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$88</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Includes base rehab + top coat (Vegan Gel)</p>
+                        </div>
+
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Nail Art (per nail)</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$8+</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Chrome, marble, lines, gems</p>
+                        </div>
+
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Removal</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$20</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Gentle soak‑off, no drilling damage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lashes Column -->
+                <div class="fade-up-trigger" style="transition-delay: 100ms;">
+                     <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 rounded-full bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3 class="font-serif text-2xl text-brand-ink">Lashes & Brows</h3>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Lash Lift + Tint</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$88</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Natural curl tailored to your eye shape</p>
+                        </div>
+
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Brow Shaping</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$28</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Wax / thread cleanup + trim</p>
+                        </div>
+
+                        <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Brow Lamination</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-ink">S$98</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Sleek, lifted, fuller brows look</p>
+                        </div>
+
+                         <div class="group">
+                            <div class="flex justify-between items-baseline w-full mb-1">
+                                <span class="font-semibold text-brand-ink">Combo: Lift & Nails</span>
+                                <span class="flex-1 mx-4 border-b border-dotted border-brand-ink/30 relative -top-1"></span>
+                                <span class="font-bold text-brand-accent">S$158</span>
+                            </div>
+                            <p class="text-xs text-brand-muted">Save time in one relaxing visit</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-16">
+                <a href="#contact" class="inline-block border-b border-brand-ink text-brand-ink hover:text-brand-accent hover:border-brand-accent transition-colors text-sm font-semibold pb-1 uppercase tracking-widest">
+                    View Full PDF Menu
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="py-20 bg-brand-card border-t border-brand-ink/5 relative overflow-hidden">
+        <!-- Decorative BG Text -->
+        <div class="absolute -right-20 top-20 font-serif text-[200px] leading-none text-brand-ink/5 select-none pointer-events-none rotate-12">NA</div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="font-serif text-3xl text-center text-brand-ink mb-16 fade-up-trigger">Client Love</h2>
+            
+            <!-- Mobile Scroll / Desktop Grid -->
+            <div class="flex md:grid md:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible no-scrollbar snap-x snap-mandatory pb-8 md:pb-0 px-4 md:px-0 -mx-4 md:mx-0">
+                
+                <!-- Card 1 -->
+                <div class="snap-center flex-shrink-0 w-[85vw] md:w-auto bg-white p-8 rounded-2xl shadow-soft border border-brand-ink/5 fade-up-trigger">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif font-bold text-brand-ink">P</div>
+                        <div>
+                            <div class="text-sm font-bold text-brand-ink">Pimchanok</div>
+                            <div class="text-xs text-brand-gold tracking-widest">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-4">"The studio is spotless and calming. My gel set lasted three weeks with zero lifting. Love the attention to detail."</p>
+                    <div class="flex gap-2">
+                         <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=200&h=200&auto=format&fit=crop" class="w-12 h-12 rounded object-cover">
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="snap-center flex-shrink-0 w-[85vw] md:w-auto bg-white p-8 rounded-2xl shadow-soft border border-brand-ink/5 fade-up-trigger" style="transition-delay: 100ms;">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif font-bold text-brand-ink">J</div>
+                        <div>
+                            <div class="text-sm font-bold text-brand-ink">Jane D.</div>
+                            <div class="text-xs text-brand-gold tracking-widest">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-4">"I came for a lash lift and manicure in one visit. Super efficient, gentle, and the result looks so natural."</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="snap-center flex-shrink-0 w-[85vw] md:w-auto bg-white p-8 rounded-2xl shadow-soft border border-brand-ink/5 fade-up-trigger" style="transition-delay: 200ms;">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-bg flex items-center justify-center font-serif font-bold text-brand-ink">M</div>
+                        <div>
+                            <div class="text-sm font-bold text-brand-ink">Mali</div>
+                            <div class="text-xs text-brand-gold tracking-widest">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-brand-muted text-sm leading-relaxed mb-4">"Best minimalist nails in Singapore. They matched my reference perfectly and suggested a better shade for my skin tone."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trendy Section -->
+    <section id="trendy" class="py-20 bg-brand-bg">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-10 fade-up-trigger">
+                <h2 class="font-serif text-2xl text-brand-ink">More Trendy</h2>
+                <a href="#" class="text-xs font-bold uppercase tracking-widest text-brand-muted hover:text-brand-ink">See More</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Post 1 -->
+                <div class="group cursor-pointer fade-up-trigger">
+                    <div class="overflow-hidden rounded-xl mb-4 aspect-[16/10]">
+                        <img src="https://images.unsplash.com/photo-1512207846876-bb54ef505a12?q=80&w=1600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-brand-muted mb-2">Tips • 3 min read</div>
+                    <h3 class="font-serif text-lg text-brand-ink mb-2 group-hover:text-brand-accent transition-colors">Restore fragile nails</h3>
+                    <p class="text-sm text-brand-muted line-clamp-2">Our gentle rehab routine for thin or brittle nails — perfect before your next gel set.</p>
+                </div>
+
+                <!-- Post 2 -->
+                <div class="group cursor-pointer fade-up-trigger" style="transition-delay: 100ms;">
+                    <div class="overflow-hidden rounded-xl mb-4 aspect-[16/10]">
+                        <img src="https://images.unsplash.com/photo-1632345031374-0de15d4e68c9?q=80&w=1600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-brand-muted mb-2">Trends • 4 min read</div>
+                    <h3 class="font-serif text-lg text-brand-ink mb-2 group-hover:text-brand-accent transition-colors">Minimal art, maximum beauty</h3>
+                    <p class="text-sm text-brand-muted line-clamp-2">Why clean, understated nails are the effortless statement of 2025.</p>
+                </div>
+
+                <!-- Post 3 -->
+                <div class="group cursor-pointer fade-up-trigger" style="transition-delay: 200ms;">
+                    <div class="overflow-hidden rounded-xl mb-4 aspect-[16/10]">
+                        <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1600&auto=format&fit=crop" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="text-[10px] uppercase tracking-[0.15em] text-brand-muted mb-2">Guide • 5 min read</div>
+                    <h3 class="font-serif text-lg text-brand-ink mb-2 group-hover:text-brand-accent transition-colors">Step‑by‑step care at home</h3>
+                    <p class="text-sm text-brand-muted line-clamp-2">Simple habits to keep your manicure glossy and your cuticles healthy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-[#EFE7DE] pt-20 pb-8 border-t border-brand-ink/5">
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+            
+            <!-- Booking Card -->
+            <div class="bg-white/60 p-6 rounded-2xl border border-white shadow-sm fade-up-trigger">
+                <h4 class="font-bold text-xs uppercase tracking-[0.2em] text-brand-muted mb-4">Booking</h4>
+                <p class="text-brand-ink mb-4">Scan to chat & book instantly</p>
+                <div class="flex items-center gap-4">
+                    <div class="w-24 h-24 bg-white border border-dashed border-brand-ink/20 rounded flex items-center justify-center">
+                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=NailAtelierBooking" alt="Booking QR" class="p-2 w-full h-full opacity-80">
+                    </div>
+                    <button class="bg-brand-ink text-white px-4 py-2 text-xs font-bold uppercase tracking-widest rounded hover:bg-brand-accent transition-colors">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info -->
+            <div class="bg-white/60 p-6 rounded-2xl border border-white shadow-sm fade-up-trigger" style="transition-delay: 100ms;">
+                <h4 class="font-bold text-xs uppercase tracking-[0.2em] text-brand-muted mb-4">Open Daily</h4>
+                <p class="text-xl font-serif text-brand-ink mb-6">10:00 AM – 8:00 PM</p>
+                
+                <h4 class="font-bold text-xs uppercase tracking-[0.2em] text-brand-muted mb-2">Location</h4>
+                <p class="text-brand-ink text-sm mb-2">Nail Atelier, Orchard Rd, Singapore</p>
+                <p class="text-xs text-brand-muted">Walk-ins welcome when slots available.</p>
+            </div>
+
+            <!-- Social -->
+            <div class="bg-white/60 p-6 rounded-2xl border border-white shadow-sm fade-up-trigger" style="transition-delay: 200ms;">
+                <h4 class="font-bold text-xs uppercase tracking-[0.2em] text-brand-muted mb-6">Social Media</h4>
+                <div class="space-y-3">
+                    <a href="#" class="flex items-center text-brand-ink hover:text-brand-accent transition-colors gap-3">
+                        <i class="fab fa-instagram w-5"></i> @nailatelier.sg
+                    </a>
+                    <a href="#" class="flex items-center text-brand-ink hover:text-brand-accent transition-colors gap-3">
+                        <i class="fab fa-facebook-f w-5"></i> Nail Atelier Singapore
+                    </a>
+                    <a href="#" class="flex items-center text-brand-ink hover:text-brand-accent transition-colors gap-3">
+                        <i class="fab fa-whatsapp w-5"></i> WhatsApp: +65 9123 4567
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 text-center border-t border-brand-ink/5 pt-8">
+            <p class="text-xs text-brand-muted">&copy; <span id="year"></span> Nail Atelier. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // === Mobile Menu Logic ===
+        function toggleMobileMenu() {
+            const overlay = document.getElementById('mobile-menu-overlay');
+            const panel = document.getElementById('mobile-menu-panel');
+            
+            if (panel.classList.contains('-translate-x-full')) {
+                // Open
+                overlay.classList.remove('invisible', 'opacity-0');
+                panel.classList.remove('-translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Close
+                overlay.classList.add('invisible', 'opacity-0');
+                panel.classList.add('-translate-x-full');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // === Hero Parallax ===
+        const heroBg = document.getElementById('hero-bg');
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.pageYOffset;
+            // Only apply parallax if within view to save resources
+            if (scrollPosition < 1000) {
+                heroBg.style.transform = `translate3d(0, ${scrollPosition * 0.4}px, 0)`;
+            }
+        });
+
+        // === Gallery Interaction ===
+        const mainImg = document.getElementById('main-feature-img');
+        const thumbs = document.querySelectorAll('.thumb-trigger');
+        
+        thumbs.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                // Update main image opacity for fade effect
+                mainImg.style.opacity = '0.8';
+                
+                // Swap source
+                setTimeout(() => {
+                    mainImg.src = this.getAttribute('data-src');
+                    mainImg.style.opacity = '1';
+                }, 200);
+                
+                // Update active border state
+                thumbs.forEach(t => t.classList.remove('border-brand-accent'));
+                this.classList.add('border-brand-accent');
+            });
+        });
+
+        // === Scroll Animations (Fade Up) ===
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up-trigger').forEach(el => {
+            el.classList.add('fade-up');
+            observer.observe(el);
+        });
+
+        // === Set Year ===
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
