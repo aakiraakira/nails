@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nail Atelier | Premium Manicure, Lashes & Brows Singapore</title>
+    <link rel="icon" href="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -32,20 +33,15 @@
                     boxShadow: {
                         'soft': '0 6px 18px rgba(37, 31, 28, 0.05)',
                         'deep': '0 10px 30px rgba(37, 31, 28, 0.10)',
-                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.15)',
                     },
                     animation: {
                         'marquee': 'marquee 40s linear infinite',
-                        'fade-in': 'fadeIn 0.8s ease-out forwards',
                     },
                     keyframes: {
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
                             '100%': { transform: 'translateX(-50%)' },
-                        },
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
                         }
                     }
                 }
@@ -56,6 +52,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How do I book an appointment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can book instantly via our online booking system or contact us via WhatsApp at +65 8808 0208."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What products do you use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We use premium, reputable brands including vegan-friendly gels and Footlogix for treatments, ensuring safety and quality."
+        }
+      }, {
+        "@type": "Question",
+        "name": "Where are you located?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We are located at 68 Orchard Road, Plaza Singapura, #06-13, Singapore 238839."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What payment methods do you accept?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We accept Credit Cards, Paynow, and Cash."
+        }
+      }]
+    }
+    </script>
+
     <style>
         /* Custom Utilities */
         body { background-color: #F6F1EA; color: #251F1C; }
@@ -65,7 +97,7 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
         /* Smooth Anchor Offsets */
-        html { scroll-padding-top: 100px; }
+        html { scroll-padding-top: 130px; } /* Increased for larger fixed header */
 
         /* Dropdown Hover */
         .group:hover .group-hover\:visible { visibility: visible; }
@@ -84,88 +116,117 @@
             70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
+
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        /* Entrance Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
-<body class="font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white">
+<body class="font-sans antialiased overflow-x-hidden selection:bg-brand-accent selection:text-white pt-[110px] md:pt-[120px]">
 
-    <div class="bg-brand-ink text-white py-2 text-[10px] md:text-xs tracking-widest uppercase text-center hidden md:block">
-        <span class="mx-4"><i class="fas fa-map-marker-alt mr-2 text-brand-gold"></i>Plaza Singapura #06-13</span>
-        <span class="mx-4"><i class="fas fa-phone mr-2 text-brand-gold"></i>+65 6255 7257</span>
-        <span class="mx-4" id="top-status-indicator"></span>
-    </div>
+    <div class="fixed top-0 left-0 w-full z-50">
+        
+        <div class="bg-brand-ink text-white py-2.5 text-[10px] md:text-xs tracking-widest uppercase text-center hidden md:flex justify-center items-center divide-x divide-white/20 relative z-50">
+            <span class="px-4"><i class="fas fa-map-marker-alt mr-2 text-brand-gold"></i>Plaza Singapura #06-13</span>
+            <span class="px-4"><i class="fas fa-phone mr-2 text-brand-gold"></i>+65 6255 7257</span>
+            <span class="px-4"><i class="fas fa-credit-card mr-2 text-brand-gold"></i>Payment Methods: Card, Paynow, Cash</span>
+            <span class="px-4" id="top-status-indicator"></span>
+        </div>
 
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 top-0 bg-brand-bg/95 backdrop-blur-md border-b border-brand-ink/5">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                
-                <a href="#" class="flex-shrink-0" onclick="window.scrollTo(0,0)">
-                    <img src="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png" alt="Nail Atelier Logo" class="h-12 w-auto">
-                </a>
-
-                <div class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.15em] font-medium text-brand-muted">
-                    <a href="#about" class="hover:text-brand-ink transition-colors py-2">About</a>
+        <nav id="navbar" class="bg-brand-bg/95 backdrop-blur-md border-b border-brand-ink/5 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-20">
                     
-                    <div class="relative group py-2 cursor-pointer">
-                        <span class="hover:text-brand-ink transition-colors flex items-center gap-1">
-                            Menu <i class="fas fa-chevron-down text-[8px]"></i>
-                        </span>
-                        <div class="absolute left-1/2 -translate-x-1/2 top-full w-48 bg-white shadow-deep rounded-lg border border-brand-ink/5 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 text-center overflow-hidden">
-                            <a href="#menu-nails" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Nails</a>
-                            <a href="#menu-spa" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Spa & Treatments</a>
-                            <a href="#menu-lashes" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Lashes & Brows</a>
-                            <a href="#menu-hair" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Hair Removal</a>
+                    <a href="#" class="flex-shrink-0" onclick="window.scrollTo(0,0)">
+                        <img src="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png" alt="Nail Atelier Logo" class="h-12 w-auto">
+                    </a>
+
+                    <div class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.15em] font-medium text-brand-muted">
+                        <a href="#about" class="hover:text-brand-ink transition-colors py-2">About</a>
+                        
+                        <div class="relative group py-2 cursor-pointer">
+                            <span class="hover:text-brand-ink transition-colors flex items-center gap-1">
+                                Menu <i class="fas fa-chevron-down text-[8px]"></i>
+                            </span>
+                            <div class="absolute left-1/2 -translate-x-1/2 top-full w-48 bg-white shadow-deep rounded-lg border border-brand-ink/5 opacity-0 invisible translate-y-2 transition-all duration-300 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 text-center overflow-hidden">
+                                <a href="#menu-nails" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Nails</a>
+                                <a href="#menu-spa" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Spa & Treatments</a>
+                                <a href="#menu-lashes" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Lashes & Brows</a>
+                                <a href="#menu-hair" class="block px-4 py-3 hover:bg-brand-bg hover:text-brand-accent transition-colors">Hair Removal</a>
+                            </div>
                         </div>
+
+                        <a href="#why-us" class="hover:text-brand-ink transition-colors py-2">Why Us</a>
+                        <a href="#gallery" class="hover:text-brand-ink transition-colors py-2">Gallery</a>
+                        <a href="#faq" class="hover:text-brand-ink transition-colors py-2">FAQ</a>
+                        <a href="#contact" class="hover:text-brand-ink transition-colors py-2">Contact</a>
                     </div>
 
-                    <a href="#why-us" class="hover:text-brand-ink transition-colors py-2">Why Us</a>
-                    <a href="#gallery" class="hover:text-brand-ink transition-colors py-2">Gallery</a>
-                    <a href="#contact" class="hover:text-brand-ink transition-colors py-2">Contact</a>
-                </div>
-
-                <div class="flex items-center gap-4">
-                    <a href="https://nailatelier.wessapp.com/home" target="_blank" class="hidden md:inline-block px-6 py-2.5 bg-brand-ink text-white text-xs font-semibold uppercase tracking-widest rounded-full hover:bg-brand-accent hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                        Book Online
-                    </a>
-                    
-                    <button onclick="toggleMobileMenu()" class="md:hidden text-brand-ink p-2 hover:bg-black/5 rounded-full transition-colors" aria-label="Menu">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
+                    <div class="flex items-center gap-4">
+                        <a href="https://nailatelier.wessapp.com/home" target="_blank" class="hidden md:inline-block px-6 py-2.5 bg-brand-ink text-white text-xs font-semibold uppercase tracking-widest rounded-full hover:bg-brand-accent hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                            Book Online
+                        </a>
+                        
+                        <button onclick="toggleMobileMenu()" class="md:hidden text-brand-ink p-2 hover:bg-black/5 rounded-full transition-colors z-50 relative" aria-label="Menu">
+                            <i class="fas fa-bars text-xl" id="menu-icon"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </nav>
+    </div>
 
-        <div id="mobile-menu-overlay" onclick="toggleMobileMenu()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 opacity-0 invisible transition-all duration-300 md:hidden"></div>
-        <div id="mobile-menu-panel" class="fixed top-0 right-0 w-[85%] max-w-xs h-full bg-[#FAF8F5] z-50 transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col md:hidden">
-            <div class="p-6 flex justify-between items-center border-b border-brand-ink/5">
-                <img src="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png" class="h-8">
-                <button onclick="toggleMobileMenu()" class="text-brand-muted hover:text-brand-ink p-2">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <div class="flex-1 overflow-y-auto py-8 px-8 space-y-6 text-center">
-                <a href="#about" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink">About</a>
-                <a href="#menu-nails" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink">Menu</a>
-                <a href="#why-us" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink">Why Choose Us</a>
-                <a href="#gallery" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink">Gallery</a>
-                <a href="#contact" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink">Contact & Location</a>
-            </div>
-            <div class="p-8 border-t border-brand-ink/5">
-                <a href="https://nailatelier.wessapp.com/home" target="_blank" class="block w-full text-center py-4 bg-brand-ink text-white text-sm font-bold uppercase tracking-widest rounded hover:bg-brand-accent transition-colors">
-                    Book Appointment
-                </a>
-            </div>
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black/50 z-[60] hidden transition-opacity duration-300" onclick="toggleMobileMenu()"></div>
+    
+    <div id="mobile-menu-drawer" class="fixed top-0 right-0 h-full w-[80%] max-w-[300px] bg-[#FAF8F5] z-[70] transform translate-x-full transition-transform duration-300 shadow-2xl flex flex-col">
+        <div class="p-6 flex justify-between items-center border-b border-brand-ink/5">
+            <img src="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png" class="h-8">
+            <button onclick="toggleMobileMenu()" class="text-brand-muted hover:text-brand-ink p-2">
+                <i class="fas fa-times text-xl"></i>
+            </button>
         </div>
-    </nav>
+        <div class="flex-1 overflow-y-auto py-8 px-8 space-y-6 text-center">
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">About</a>
+            <a href="#menu-nails" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">Menu</a>
+            <a href="#why-us" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">Why Choose Us</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">Gallery</a>
+            <a href="#faq" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">FAQ</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-lg font-serif text-brand-ink hover:text-brand-accent">Contact</a>
+        </div>
+        <div class="p-8 border-t border-brand-ink/5 bg-white">
+            <a href="https://nailatelier.wessapp.com/home" target="_blank" class="block w-full text-center py-4 bg-brand-ink text-white text-sm font-bold uppercase tracking-widest rounded hover:bg-brand-accent transition-colors">
+                Book Now
+            </a>
+        </div>
+    </div>
 
-    <header class="relative min-h-[90vh] flex items-center justify-center pt-20 overflow-hidden">
+    <header class="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
              <div class="absolute inset-0 bg-black/20 z-10"></div>
-             <img src="https://reputifly.com/wp-content/uploads/2026/01/rehova-images-12.webp" class="w-full h-full object-cover object-center animate-fade-in" alt="Nail Atelier Salon Interior">
+             <img src="https://reputifly.com/wp-content/uploads/2026/01/rehova-images-12.webp" class="w-full h-full object-cover object-center" alt="Nail Atelier Salon Interior">
         </div>
 
-        <div class="relative z-20 container mx-auto px-4 text-center">
-            <div class="bg-white/90 backdrop-blur-sm p-8 md:p-16 rounded-[2rem] shadow-deep max-w-2xl mx-auto border border-white">
-                <span class="inline-block py-1 px-3 rounded-full bg-brand-bg border border-brand-ink/10 text-[10px] font-bold uppercase tracking-widest text-brand-ink mb-6">
+        <div class="relative z-20 container mx-auto px-4 text-center reveal">
+            <div class="glass-panel p-8 md:p-16 rounded-[2rem] shadow-glass max-w-2xl mx-auto">
+                
+                <img src="https://nailatelier.com.sg/wp-content/uploads/2025/11/cropped-logo-new.png" alt="Nail Atelier" class="h-16 md:h-20 mx-auto mb-6 opacity-90 mix-blend-multiply">
+
+                <span class="inline-block py-1 px-3 rounded-full bg-white/50 border border-brand-ink/10 text-[10px] font-bold uppercase tracking-widest text-brand-ink mb-6 backdrop-blur-sm">
                     <span id="hero-status-dot" class="inline-block w-2 h-2 rounded-full bg-red-500 mr-2"></span>
                     <span id="hero-status-text">Checking Status...</span>
                 </span>
@@ -173,7 +234,7 @@
                 <h1 class="font-serif text-4xl md:text-6xl text-brand-ink mb-6 leading-tight">
                     Artistry at Your <br/> Fingertips
                 </h1>
-                <p class="text-brand-muted text-sm md:text-base mb-8 max-w-md mx-auto leading-relaxed">
+                <p class="text-brand-ink/80 text-sm md:text-base mb-8 max-w-md mx-auto leading-relaxed font-medium">
                     Experience Singapore's premium nail, lash, and brow sanctuary. Located conveniently in Plaza Singapura.
                 </p>
                 
@@ -181,7 +242,7 @@
                     <a href="https://nailatelier.wessapp.com/home" target="_blank" class="px-8 py-3 bg-brand-ink text-white text-xs font-bold uppercase tracking-widest rounded-full shadow-lg hover:bg-brand-accent hover:-translate-y-1 transition-all">
                         Book Now
                     </a>
-                    <a href="#menu-nails" class="px-8 py-3 bg-transparent border border-brand-ink text-brand-ink text-xs font-bold uppercase tracking-widest rounded-full hover:bg-brand-bg transition-all">
+                    <a href="#menu-nails" class="px-8 py-3 bg-transparent border border-brand-ink text-brand-ink text-xs font-bold uppercase tracking-widest rounded-full hover:bg-white/50 transition-all">
                         View Menu
                     </a>
                 </div>
@@ -189,7 +250,7 @@
         </div>
     </header>
 
-    <section class="py-16 bg-white border-b border-brand-ink/5 overflow-hidden">
+    <section class="py-16 bg-white border-b border-brand-ink/5 overflow-hidden reveal">
         <div class="text-center mb-10">
             <h2 class="text-2xl font-bold text-brand-ink">Trusted by many on 
                 <span class="text-google-blue">G</span><span class="text-google-red">o</span><span class="text-google-yellow">o</span><span class="text-google-blue">g</span><span class="text-google-green">l</span><span class="text-google-red">e</span>
@@ -255,7 +316,7 @@
                             <div><p class="text-xs font-bold text-brand-ink">Jane Doe</p><p class="text-[10px] text-green-600"><i class="fas fa-check-circle"></i> Verified</p></div>
                         </div>
                     </div>
-                    <div class="w-[300px] md:w-[400px] bg-brand-card p-6 rounded-2xl shadow-card border border-brand-ink/5 shrink-0">
+                     <div class="w-[300px] md:w-[400px] bg-brand-card p-6 rounded-2xl shadow-card border border-brand-ink/5 shrink-0">
                         <div class="flex text-google-yellow text-xs mb-3"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                         <p class="text-brand-ink text-sm leading-relaxed mb-4">"Best minimalist nails in Singapore. They matched my reference perfectly and suggested a better shade."</p>
                         <div class="flex items-center gap-3">
@@ -277,7 +338,7 @@
         </div>
     </section>
 
-    <section id="about" class="py-20 md:py-32 bg-brand-bg">
+    <section id="about" class="py-20 md:py-32 bg-brand-bg reveal">
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div class="relative">
@@ -303,7 +364,7 @@
         </div>
     </section>
 
-    <section id="why-us" class="py-20 bg-white border-y border-brand-ink/5">
+    <section id="why-us" class="py-20 bg-white border-y border-brand-ink/5 reveal">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="text-center mb-16">
                 <span class="text-brand-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">The Difference</span>
@@ -347,7 +408,7 @@
         </div>
     </section>
 
-    <section id="menu-nails" class="py-20 bg-brand-bg">
+    <section id="menu-nails" class="py-20 bg-brand-bg reveal">
         <div class="container mx-auto px-4 max-w-4xl">
             <div class="text-center mb-16">
                 <span class="text-brand-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Pricing</span>
@@ -526,7 +587,7 @@
         </div>
     </section>
 
-    <section id="gallery" class="py-20 bg-[#FAF8F5] border-t border-brand-ink/5">
+    <section id="gallery" class="py-20 bg-[#FAF8F5] border-t border-brand-ink/5 reveal">
         <div class="container mx-auto px-4">
             <h2 class="font-serif text-3xl md:text-4xl text-brand-ink text-center mb-12">Our Collection</h2>
             
@@ -544,7 +605,67 @@
         </div>
     </section>
 
-    <section id="contact" class="py-20 bg-brand-bg relative">
+    <section id="faq" class="py-20 bg-white border-t border-brand-ink/5 reveal">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="text-center mb-16">
+                <span class="text-brand-accent text-xs font-bold uppercase tracking-[0.2em] mb-4 block">Help</span>
+                <h2 class="font-serif text-4xl text-brand-ink">Frequently Asked Questions</h2>
+                <div class="w-24 h-[1px] bg-brand-gold mx-auto mt-6"></div>
+            </div>
+
+            <div class="space-y-4">
+                <div class="border border-brand-ink/10 rounded-lg overflow-hidden">
+                    <button class="w-full text-left p-6 flex justify-between items-center bg-brand-bg hover:bg-brand-card transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-brand-ink">How do I book an appointment?</span>
+                        <i class="fas fa-plus text-brand-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-6 py-4 bg-white text-sm text-brand-muted leading-relaxed border-t border-brand-ink/5">
+                            You can book instantly via our online booking system (click the "Book Now" button) or send us a message on WhatsApp at +65 8808 0208. We recommend booking 2-3 days in advance.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-brand-ink/10 rounded-lg overflow-hidden">
+                    <button class="w-full text-left p-6 flex justify-between items-center bg-brand-bg hover:bg-brand-card transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-brand-ink">What products do you use?</span>
+                        <i class="fas fa-plus text-brand-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-6 py-4 bg-white text-sm text-brand-muted leading-relaxed border-t border-brand-ink/5">
+                            We prioritize health and quality. We use reputable, often vegan-friendly gel brands that are gentle on natural nails. For foot treatments, we use Footlogix, a leading pharmaceutical-grade brand.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-brand-ink/10 rounded-lg overflow-hidden">
+                    <button class="w-full text-left p-6 flex justify-between items-center bg-brand-bg hover:bg-brand-card transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-brand-ink">Where are you located?</span>
+                        <i class="fas fa-plus text-brand-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-6 py-4 bg-white text-sm text-brand-muted leading-relaxed border-t border-brand-ink/5">
+                            We are conveniently located in the heart of Orchard Road at Plaza Singapura, #06-13, Singapore 238839.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border border-brand-ink/10 rounded-lg overflow-hidden">
+                    <button class="w-full text-left p-6 flex justify-between items-center bg-brand-bg hover:bg-brand-card transition-colors focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="font-bold text-brand-ink">Do you accept walk-ins?</span>
+                        <i class="fas fa-plus text-brand-accent transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                        <div class="px-6 py-4 bg-white text-sm text-brand-muted leading-relaxed border-t border-brand-ink/5">
+                            We accept walk-ins subject to availability, but slots fill up fast! We highly recommend making an appointment to avoid disappointment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 bg-brand-bg relative reveal">
         <div class="container mx-auto px-4 max-w-6xl">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 bg-white rounded-3xl shadow-soft overflow-hidden">
                 
@@ -615,7 +736,7 @@
         </div>
     </section>
 
-    <footer class="bg-[#251F1C] text-white pt-16 pb-8 border-t border-white/5">
+    <footer class="bg-[#251F1C] text-white pt-16 pb-8 border-t border-white/5 reveal">
         <div class="container mx-auto px-4 text-center">
             
             <div class="flex flex-col md:flex-row justify-between items-center max-w-4xl mx-auto mb-12 gap-8">
@@ -638,6 +759,7 @@
 
             <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-4">
                 <p>© <span id="year"></span> Nail Atelier. All rights reserved.</p>
+                <p>Website Design by <a href="https://reputifly.com/web-development" class="text-white hover:text-brand-gold transition underline" rel="dofollow">Reputifly</a></p>
                 <div class="flex gap-6">
                     <a href="https://www.instagram.com/" class="hover:text-brand-gold transition"><i class="fab fa-instagram text-lg"></i></a>
                     <a href="https://www.facebook.com/" class="hover:text-brand-gold transition"><i class="fab fa-facebook-f text-lg"></i></a>
@@ -676,20 +798,28 @@
                 // Open State
                 if(topIndicator) topIndicator.innerHTML = '<i class="fas fa-circle text-green-500 text-[8px] mr-2"></i> OPEN NOW';
                 
-                heroText.textContent = "We Are Open";
-                heroDot.className = "inline-block w-2 h-2 rounded-full bg-green-500 mr-2 blob"; // Green pulse
+                if(heroText) {
+                   heroText.textContent = "We Are Open";
+                   heroDot.className = "inline-block w-2 h-2 rounded-full bg-green-500 mr-2 blob"; 
+                }
                 
-                sidebarStatus.innerHTML = '<span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span> Open Now';
-                sidebarStatus.className = "mt-2 inline-flex items-center text-xs font-bold uppercase tracking-widest text-green-600";
+                if(sidebarStatus) {
+                    sidebarStatus.innerHTML = '<span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span> Open Now';
+                    sidebarStatus.className = "mt-2 inline-flex items-center text-xs font-bold uppercase tracking-widest text-green-600";
+                }
             } else {
                 // Closed State
                 if(topIndicator) topIndicator.innerHTML = '<i class="fas fa-circle text-red-500 text-[8px] mr-2"></i> CLOSED';
                 
-                heroText.textContent = "Currently Closed";
-                heroDot.className = "inline-block w-2 h-2 rounded-full bg-red-500 mr-2";
+                if(heroText) {
+                    heroText.textContent = "Currently Closed";
+                    heroDot.className = "inline-block w-2 h-2 rounded-full bg-red-500 mr-2";
+                }
                 
-                sidebarStatus.innerHTML = '<span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span> Currently Closed';
-                sidebarStatus.className = "mt-2 inline-flex items-center text-xs font-bold uppercase tracking-widest text-red-600";
+                if(sidebarStatus) {
+                    sidebarStatus.innerHTML = '<span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span> Currently Closed';
+                    sidebarStatus.className = "mt-2 inline-flex items-center text-xs font-bold uppercase tracking-widest text-red-600";
+                }
             }
         }
 
@@ -710,25 +840,61 @@
             window.open(`https://wa.me/6588080208?text=${encodedText}`, '_blank');
         }
 
-        // === 3. Mobile Menu Toggle ===
+        // === 3. Mobile Menu Toggle (Rebuilt Logic) ===
         function toggleMobileMenu() {
             const overlay = document.getElementById('mobile-menu-overlay');
-            const panel = document.getElementById('mobile-menu-panel');
+            const drawer = document.getElementById('mobile-menu-drawer');
             
-            if (panel.classList.contains('translate-x-full')) {
-                // Open
-                overlay.classList.remove('invisible', 'opacity-0');
-                panel.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden';
+            if (drawer.classList.contains('translate-x-full')) {
+                // Open Menu
+                overlay.classList.remove('hidden');
+                // Small timeout to allow display:block to apply before opacity transition
+                setTimeout(() => {
+                    drawer.classList.remove('translate-x-full');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                }, 10);
             } else {
-                // Close
-                overlay.classList.add('invisible', 'opacity-0');
-                panel.classList.add('translate-x-full');
-                document.body.style.overflow = '';
+                // Close Menu
+                drawer.classList.add('translate-x-full');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300); // Wait for transition
             }
         }
 
-        // === 4. Footer Year ===
+        // === 4. Smooth FAQ Toggle ===
+        function toggleFaq(button) {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (content.style.maxHeight) {
+                // Close
+                content.style.maxHeight = null;
+                icon.classList.remove('fa-minus');
+                icon.classList.add('fa-plus');
+                button.classList.remove('bg-brand-card');
+            } else {
+                // Open
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.classList.remove('fa-plus');
+                icon.classList.add('fa-minus');
+                button.classList.add('bg-brand-card');
+            }
+        }
+
+        // === 5. Entrance Animation Observer ===
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // === 6. Footer Year ===
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
